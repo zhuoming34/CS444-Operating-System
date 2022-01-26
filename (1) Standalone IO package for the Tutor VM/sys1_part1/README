@@ -1,0 +1,16 @@
+Typescript files for CS444 homework 1 part 1
+
+Author: Zhuoming Huang
+Date: 2021/09/22
+
+tty.c -- tty device driver
+tty.h -- internal header file
+syms -- list of interrupt handlers
+testio.lnx -- built from testio.c for exercising the io package
+
+testio_mod-zmumbcs.script -- typescript of running testio.lnx with debug_log output on tutor VM
+
+remgdb-testio_mod-zmumbcs.script -- typescript of running remote gdb on tutor-vserver VM to debug testio.lnx with several breakpoints and "next" commands.
+
+
+

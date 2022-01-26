@@ -1,0 +1,79 @@
+Script started on Wed 22 Sep 2021 06:15:35 PM EDT
+tuser@tutor-vserver:~/hw1$ mtip -f testio.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+Please type <CR> to confirm console setting: 
+Setting console dev to COM2Console: colour EGA+ 80x25
+COM1 at 0x03f8 (irq = 4) is a 16550A
+COM2 at 0x02f8 (irq = 3) is a 16550A
+
+                 Welcome to UMB Tutor for the PC
+   UMB Tutor is a 32-bit protected-mode PC debugger/downloader,
+       based on Linux, UMB Tutor for m68k, and remote gdb.
+UMB Tutor is free software and you are welcome to distribute copies
+of it under certain conditions.  There is no warranty for this program.
+The copyright and warranty provisions follow the Gnu general public
+license, available for view in gdb and elsewhere.  Full sources available.
+--bugs, suggestions, questions to eoneil@cs.umb.edu
+
+Exception 3 at EIP=00057a9b: Breakpoint
+Tutor> ~downloading testio.lnx
+
+...........Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+Running with device TTY1
+
+Trying simple write(4 chars)...
+hi!
+write of 4 returned 4
+<doing delay>
+Trying longer write (9 chars)
+abcdefghiwrite of 9 returned 9
+<doing delay>
+12345
+Trying write of 80-char string...
+AABBCCDDEEFFGGHHIIJJKKLLMMNNOOPPQQRRSSTTUUVVWWXXYYZZ[[\\]]^^__``aabbccddeeffgghh
+write returned 80
+<doing delay>
+45678234
+Type 10 chars input to test typeahead while looping for delay...
+5<doing delay>
+678345678
+Got 6 chars into buf. Trying write of buf...
+123454
+Trying another 10 chars read right away...
+
+Got 0 chars on second read
+nothing in buffer
+
+
+Now turning echo off--
+
+Type 20 chars input, note lack of echoes...
+<doing delay>
+
+Trying write of buf...
+234567
+Asked for 20 characters; got 6
+Exception 3 at EIP=00100110: Breakpoint
+Tutor> md 300000
+00300000    3c 68 3c 69 3c 21 3c 0a 3c 61 3c 62 3c 63 3c 64 <h<i<!<.<a<b<c<d
+Tutor> 
+00300010    3c 65 3c 66 3c 67 3c 68 3c 69 2a 2a 2a 2a 2a 3c <e<f<g<h<i*****<
+Tutor> 
+00300020    41 3c 41 3c 42 3c 42 3c 43 3c 43 3c 44 3c 44 3c A<A<B<B<C<C<D<D<
+Tutor> 
+00300030    45 3c 45 3c 46 3c 46 3c 47 3c 47 3c 48 3c 48 3c E<E<F<F<G<G<H<H<
+Tutor> 
+00300040    49 3c 49 3c 4a 3c 4a 3c 4b 3c 4b 3c 4c 3c 4c 3c I<I<J<J<K<K<L<L<
+Tutor> ~q 
+Quit handler: 
+killing process 1910 Leaving board #1
+tuser@tutor-vserver:~/hw1$ exit
+exit
+
+Script done on Wed 22 Sep 2021 06:17:01 PM EDT
