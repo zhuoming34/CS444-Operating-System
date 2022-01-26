@@ -1,0 +1,117 @@
+Script started on Sun 07 Nov 2021 10:12:48 PM EST
+]0;tuser@tutor-vserver: ~/homework/hw2tuser@tutor-vserver:~/homework/hw2$ gdb test1.lnx
+GNU gdb (GDB) 7.0.1-debian
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/tuser/homework/hw2/test1.lnx...done.
+(gdb) tar rem /dev/ttyS0
+Remote debugging using /dev/ttyS0
+0x00100100 in _start ()
+(gdb) set $eip=0x100100
+(gdb) [K(gdb) b main
+Breakpoint 1 at 0x100c47: file test1.c, line 17.
+(gdb) c
+Continuing.
+
+Breakpoint 1, main () at test1.c:17
+warning: Source file is more recent than executable.
+17	{
+(gdb) 
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+startupc () at startup.c:9
+warning: Source file is more recent than executable.
+9	{
+(gdb) l
+4	extern void init_devio(void);
+5	extern void main(void);
+6	extern void init_kernel(void);
+7	
+8	void startupc()
+9	{
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+12	 // (void)main();			
+13	 // /* execute user-supplied main */
+(gdb) b 45
+No line 45 in file "startup.c".
+(gdb) b 12
+Breakpoint 2 at 0x100130: file startup.c, line 12.
+(gdb) n
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+(gdb) n
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+(gdb) l
+6	extern void init_kernel(void);
+7	
+8	void startupc()
+9	{
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+12	 // (void)main();			
+13	 // /* execute user-supplied main */
+14	 /* replace main with init_kernel */
+15	  init_kernel();
+(gdb) 
+16	}
+(gdb) 
+Line number 17 out of range; startup.c has 16 lines.
+(gdb) c
+Continuing.
+
+Breakpoint 2, startupc () at startup.c:15
+15	  init_kernel();
+(gdb) l
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+12	 // (void)main();			
+13	 // /* execute user-supplied main */
+14	 /* replace main with init_kernel */
+15	  init_kernel();
+16	}
+(gdb) n
+
+Breakpoint 1, main () at test1.c:17
+17	{
+(gdb) n
+23	  lib_console_dev = sys_get_console_dev(); // SAPC support lib fn
+(gdb) l
+18	  char buf[BUFLEN];
+19	  int got, i, lib_console_dev, ldev;
+20	  // char echoctrl = ECHOCONTROL;
+21	
+22	  // determine the SAPC's "console" device, the serial port for user i/o
+23	  lib_console_dev = sys_get_console_dev(); // SAPC support lib fn
+24	  switch (lib_console_dev) {
+25	  	case COM1: 
+26			ldev = TTY0; // convert to our dev #'s
+27			break;
+(gdb) c
+Continuing.
+
+Program received signal SIGTRAP, Trace/breakpoint trap.
+startupc () at startup.c:9
+9	{
+(gdb) x/16bx 0x300000
+0x300000:	0x2a	0x3e	0x68	0x40	0x32	0x2a	0x3e	0x69
+0x300008:	0x40	0x32	0x2a	0x3e	0x21	0x40	0x32	0x2a
+(gdb) x/16bx 0x300010
+0x300010:	0x3e	0x0a	0x40	0x32	0x2a	0x2a	0x3e	0x61
+0x300018:	0x40	0x32	0x2a	0x3e	0x62	0x40	0x32	0x2a
+(gdb) quit
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+]0;tuser@tutor-vserver: ~/homework/hw2tuser@tutor-vserver:~/homework/hw2$ exit
+exit
+
+Script done on Sun 07 Nov 2021 10:18:32 PM EST
