@@ -1,0 +1,66 @@
+/************************************/
+*                                    * 
+*    README for CS444 homework 3     *
+*                                    *
+*      Author: Zhuoming Huang        *
+*          Date: 2021/11/29          *
+*                                    *
+/************************************/
+
+
+
+*** List of work
+   
+01. added asm codes crt01.s, crt02.s, crt03.s to run main1, main2, and main3.
+02. added sched.c and sched.h for scheduler functions: schedule(), sleep(), wakeup().
+03. in tunix.c, added a process table, and schedule's.
+04. in tty.c, added sleep's and wakeup's, modified debug_log contents
+
+
+
+*** hw3 files
+- tunix_mod-zmumbcs.script: typerscript of running test1.lnx with deb    ug_log on tutor VM
+- remgdb-tunix_mod-zmumbcs.script: typerscript of running remote gdb on tutor-vserver VM to debug test1.lnx
+- crt01.s, crt02.s, crt03.s: user-level "C startup module" sets up stack, calls main1, main2, main3. Does exit syscall. Entry point ustart1, ustart2, ustart3.
+- uprog1.c, uprog2.c, uprog3.c: 
+- sched.c, sched.h: scheduler code: schedule(), sleep(), wakeup()
+- proc.h: process table
+- tty.c: terminal driver, changed to block(sleep), unblock(wakeup)
+- tunix.c: kernel startup, shutdown, C trap handler
+- tunix.lnx: linux executable
+- syms: 
+
+
+
+*** List of other files
+
+i) typescript files
+- tunix_mod-zmumbcs.script: typerscript of running test1.lnx with debug_log on tutor VM
+- remgdb-tunix_mod-zmumbcs.script: typerscript of running remote gdb on tutor-vserver VM to debug test1.lnx 
+
+ii) shared files
+- tty_public.h: device numbers
+- tsyscall.h: syscall numbers
+
+iii) kernel files
+- ioconf.h: io header for device structure
+- tty.h: io header for tty structure, ttyinit/read/write/control
+- tsystm.h: syscall dispatch, kernel function prototypes for ioinit/sysread/syswrite/syscontrol
+- startup.c: call clr_bss(), init_devio(), init_kernel()
+- tunix.c: definitions of ini_kernel(), syscallc(), sysexit() routines
+(tunix_bak.c: backup for tunix.c with set_trap_gate() defined)
+- startup0.s: sets up stack, calls into startup.c
+- sysentry.s: trap handler's assembler envelope routine syscall for the trap resulting from a system call
+- io.c: ioinit, and renamed sysread, syswrite, syscontrol
+- ioconf.c: define a device struction devtab
+- tty.c: definitions of ttyinit/ttyread/ttywrite/ttycontrol/interrupt handler routines 
+
+iv) user-level files
+- tunistd.h: user-mode system call prototypes, exit/read/write/control
+- ulib.s: library set-ups for syscalls: write, read, exit
+- crt0.s: user-level "C startup module" sets up stack, calls main, does exit syscall. Entry point ustart.
+test1.c: has main(), replaced io_public.h with tsystm.h
+
+
+
+

@@ -1,0 +1,57 @@
+Script started on Sun 25 Apr 2021 09:30:05 AM EDT
+tuser@tutor-vserver:~/cs444$ mtp[Kip -f tunix.lnx
+For command help, type ~?
+For help on args, rerun without args
+Code starts at 0x100100
+Using board # 1 
+Please type <CR> to confirm console setting: 
+Setting console dev to COM2Console: colour EGA+ 80x25
+COM1 at 0x03f8 (irq = 4) is a 16550A
+COM2 at 0x02f8 (irq = 3) is a 16550A
+
+                 Welcome to UMB Tutor for the PC
+   UMB Tutor is a 32-bit protected-mode PC debugger/downloader,
+       based on Linux, UMB Tutor for m68k, and remote gdb.
+UMB Tutor is free software and you are welcome to distribute copies
+of it under certain conditions.  There is no warranty for this program.
+The copyright and warranty provisions follow the Gnu general public
+license, available for view in gdb and elsewhere.  Full sources available.
+--bugs, suggestions, questions to eoneil@cs.umb.edu
+
+Exception 3 at EIP=00057a9b: Breakpoint
+Tutor> ~downloading tunix.lnx
+
+..............Done.
+
+Download done, setting EIP to 100100.
+Tutor> go 100100
+aaaaaabbbbbbccccccaaaazzzAAAAAAAAAA
+ EXIT CODE IS 2
+bbbb
+ EXIT CODE IS 4
+cccc
+ EXIT CODE IS 6
+
+SHUTTING THE SYSTEM DOWN!
+
+Debug log from run:
+Marking kernel & user mode events as follows:
+
+  b    ttywrite enqueues 1 byte
+  ^a   COM2 input interrupt, a received
+  ~x   COM2 output interrupt, ordinary char output
+  ~e   COM2 output interrupt, echo output
+  ~s   COM2 output interrupt, shutdown TX ints
+
+|(0-1)bbbbbbb|(1b-2)~x~x~x~x~x~x~sbbbbbbb|(2b-3)~x~x~x~x~x~x~sbbbbbbb|(3b-0)~x~x~x~x~x~x~s|(0-1)bbb~x~x~x~x~sbbb~x~x~x~sbbbbbbb|(1b-2)|(2b-3)|(3b-0)~x~x~x~x~x~x~s|(0-1)bbb~x~x~x~x~s|(1z-2)bbb~x~x~x~x~s|(2z-3)bbb~x~x~x~x~s|(3z-0)
+
+LEAVE KERNEL!
+Exception 3 at EIP=0010010b: Breakpoint
+Tutor> 
+Tutor> 
+Quit handler: 
+killing process 1973 Leaving board #1
+tuser@tutor-vserver:~/cs444$ exit
+exit
+
+Script done on Sun 25 Apr 2021 09:31:04 AM EDT

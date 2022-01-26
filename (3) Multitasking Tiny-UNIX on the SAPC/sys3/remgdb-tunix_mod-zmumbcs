@@ -1,0 +1,293 @@
+Script started on Mon 29 Nov 2021 09:43:09 PM EST
+]0;tuser@tutor-vserver: ~/homework/hw3tuser@tutor-vserver:~/homework/hw3$ gdb tunix.lnx
+GNU gdb (GDB) 7.0.1-debian
+Copyright (C) 2009 Free Software Foundation, Inc.
+License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.  Type "show copying"
+and "show warranty" for details.
+This GDB was configured as "i486-linux-gnu".
+For bug reporting instructions, please see:
+<http://www.gnu.org/software/gdb/bugs/>...
+Reading symbols from /home/tuser/homework/hw3/tunix.lnx...done.
+(gdb) tar rem /dev/ttyS0
+Remote debugging using /dev/ttyS0
+0x00100100 in _start ()
+(gdb) set $eip=0x100100
+(gdb) b _startupc
+Breakpoint 1 at 0x10010b: file startup.c, line 9.
+(gdb) c
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) 
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) n
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+(gdb) 
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+(gdb) 
+12	  k_init();			/* execute user-supplied k_init */
+(gdb) c
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) b k_init
+Breakpoint 2 at 0x10013b: file tunix.c, line 55.
+(gdb) 
+Note: breakpoint 2 also set at pc 0x10013b.
+Breakpoint 3 at 0x10013b: file tunix.c, line 55.
+(gdb) n
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+(gdb) n
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+(gdb) n
+12	  k_init();			/* execute user-supplied k_init */
+(gdb) n
+
+Breakpoint 2, k_init () at tunix.c:55
+55	void k_init(){
+(gdb) n
+56	  debug_record = debug_log_area; /* clear debug log */
+(gdb) c
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) 
+Continuing.
+
+Breakpoint 2, k_init () at tunix.c:55
+55	void k_init(){
+(gdb) b main1
+Breakpoint 4 at 0x10145f: file uprog1.c, line 8.
+(gdb) c
+Continuing.
+
+Breakpoint 4, main1 () at uprog1.c:8
+8	{
+(gdb) n
+11	  write(TTY1,"aaaaaaaaaa",10);
+(gdb) b min[Ka[K[Kain2
+Breakpoint 5 at 0x1014d6: file uprog2.c, line 5.
+(gdb) n
+12	  write(TTY1, "zzz", 3);
+(gdb) c
+Continuing.
+
+Breakpoint 5, main2 () at uprog2.c:5
+5	{
+(gdb) n
+7	  write(TTY1,"bbbbbbbbbb",10);
+(gdb) n
+8	  return 4;
+(gdb) n
+9	}
+(gdb) b main3
+Breakpoint 6 at 0x10150d: file uprog3.c, line 5.
+(gdb) 
+Note: breakpoint 6 also set at pc 0x10150d.
+Breakpoint 7 at 0x10150d: file uprog3.c, line 5.
+(gdb) c
+Continuing.
+
+Breakpoint 6, main3 () at uprog3.c:5
+5	{
+(gdb) n
+7	  write(TTY1,"cccccccccc",10);
+(gdb) 
+8	  return 6;
+(gdb) c
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) b schedule
+Breakpoint 8 at 0x10053f: file sched.c, line 26.
+(gdb) n
+10	  clr_bss();			/* clear BSS area (uninitialized data) */
+(gdb) n
+11	  init_devio();			/* latch onto Tutor-supplied info, code */
+(gdb) n
+12	  k_init();			/* execute user-supplied k_init */
+(gdb) b asmswtch
+Breakpoint 9 at 0x100506
+(gdb) n
+
+Breakpoint 2, k_init () at tunix.c:55
+55	void k_init(){
+(gdb) 
+56	  debug_record = debug_log_area; /* clear debug log */
+(gdb) 
+57	  cli();
+(gdb) 
+58	  ioinit();            /* initialize the deivce */ 
+(gdb) l
+53	/****************************************************************************/
+54	
+55	void k_init(){
+56	  debug_record = debug_log_area; /* clear debug log */
+57	  cli();
+58	  ioinit();            /* initialize the deivce */ 
+59	  set_trap_gate(0x80, &syscall);   /* SET THE TRAP GATE*/
+60	
+61	  /* Note: Could set these with array initializers */
+62	  /* Need to cast function pointer type to keep ANSI C happy */
+(gdb) c
+Continuing.
+
+Breakpoint 8, schedule () at sched.c:26
+26	void schedule(void) {
+(gdb) c
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) c
+Continuing.
+
+Breakpoint 4, main1 () at uprog1.c:8
+8	{
+(gdb) c
+Continuing.
+
+Breakpoint 8, schedule () at sched.c:26
+26	void schedule(void) {
+(gdb) 
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) 
+Continuing.
+
+Breakpoint 5, main2 () at uprog2.c:5
+5	{
+(gdb) 
+Continuing.
+
+Breakpoint 8, schedule () at sched.c:26
+26	void schedule(void) {
+(gdb) 
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) 
+Continuing.
+
+Breakpoint 6, main3 () at uprog3.c:5
+5	{
+(gdb) b sysexit
+Breakpoint 10 at 0x100364: file tunix.c, line 135.
+(gdb) 
+Note: breakpoint 10 also set at pc 0x100364.
+Breakpoint 11 at 0x100364: file tunix.c, line 135.
+(gdb) 
+Note: breakpoints 10 and 11 also set at pc 0x100364.
+Breakpoint 12 at 0x100364: file tunix.c, line 135.
+(gdb) b main3
+Note: breakpoints 6 and 7 also set at pc 0x10150d.
+Breakpoint 13 at 0x10150d: file uprog3.c, line 5.
+(gdb) 
+Note: breakpoints 6, 7 and 13 also set at pc 0x10150d.
+Breakpoint 14 at 0x10150d: file uprog3.c, line 5.
+(gdb) c
+Continuing.
+
+Breakpoint 10, sysexit (exit_code=6) at tunix.c:135
+135	int sysexit(int exit_code){ 
+(gdb) 
+Continuing.
+
+Breakpoint 8, schedule () at sched.c:26
+26	void schedule(void) {
+(gdb) 
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) 
+Continuing.
+
+Breakpoint 2, k_init () at tunix.c:55
+55	void k_init(){
+(gdb) clear
+Deleted breakpoints 2 3 
+(gdb) c
+Continuing.
+
+Breakpoint 8, schedule () at sched.c:26
+26	void schedule(void) {
+(gdb) clear
+Deleted breakpoint 8 
+(gdb) c
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) clear
+No source file specified.
+(gdb) c
+Continuing.
+
+Breakpoint 4, main1 () at uprog1.c:8
+8	{
+(gdb) 
+Continuing.
+
+Breakpoint 10, sysexit (exit_code=2) at tunix.c:135
+135	int sysexit(int exit_code){ 
+(gdb) 
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) 
+Continuing.
+
+Breakpoint 5, main2 () at uprog2.c:5
+5	{
+(gdb) 
+Continuing.
+
+Breakpoint 10, sysexit (exit_code=4) at tunix.c:135
+135	int sysexit(int exit_code){ 
+(gdb) 
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) 
+Continuing.
+
+Breakpoint 6, main3 () at uprog3.c:5
+5	{
+(gdb) 
+Continuing.
+
+Breakpoint 10, sysexit (exit_code=6) at tunix.c:135
+135	int sysexit(int exit_code){ 
+(gdb) 
+Continuing.
+
+Breakpoint 1, _startupc () at startup.c:9
+9	{
+(gdb) 
+Continuing.
+
+Breakpoint 9, 0x00100506 in asmswtch ()
+(gdb) 
+Continuing.
+
+Breakpoint 4, main1 () at uprog1.c:8
+8	{
+(gdb) q
+A debugging session is active.
+
+	Inferior 1 [Remote target] will be killed.
+
+Quit anyway? (y or n) y
+]0;tuser@tutor-vserver: ~/homework/hw3tuser@tutor-vserver:~/homework/hw3$ eix[K[Kxit
+exit
+
+Script done on Mon 29 Nov 2021 09:50:57 PM EST
